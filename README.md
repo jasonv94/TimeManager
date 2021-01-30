@@ -11,4 +11,5 @@ configure in "/" and 'app/'
 > npm install bulma \  
 > npm install sass \  
 > npm install fullcalendar \  
-> npm install mongoose  
+> npm install mongoose \
+> npm install material-ui
