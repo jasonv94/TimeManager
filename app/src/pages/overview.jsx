@@ -5,8 +5,8 @@ import { Banner } from "../components";
 class Overview extends React.Component {
     render() {
         return (
-            <div>
-                <Banner page="Overview" />
+            <div className="container">
+                <Banner />
                 Overview
             </div>
         )
