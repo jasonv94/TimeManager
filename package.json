@@ -15,5 +15,8 @@
     "url": "https://github.com/jasonv94/TimeManager/issues"
   },
   "homepage": "https://github.com/jasonv94/TimeManager#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "firebase": "^8.2.5"
+  }
 }
