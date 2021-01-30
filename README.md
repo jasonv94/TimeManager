@@ -2,8 +2,16 @@
  A simple timetable manager app made using React during CuHacks 2021
 
 
-# Configuration
+## Configuration
 
-> npm install react, express, mongoose, bulma, fullcalendar, sass
+In root folder
+
+> npm install
+  npm instal react 
+  npm install express
+  npm install mongoose 
+  npm install bulma 
+  npm install fullcalendar
+  npm install sass
 
 
