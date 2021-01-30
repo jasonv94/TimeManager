@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Overview } from './pages';
+import { Overview, Profile } from './pages';
 
 import './App.css';
 
@@ -13,6 +13,11 @@ function App() {
         exact={true}
         path='/'
         component={Overview}
+      />
+      <Route
+        exact={true}
+        path='/profile'
+        component={Profile}
       />
     </Switch>
   );
