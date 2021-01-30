@@ -1,13 +1,17 @@
 const express = require("express")
 const Event = require("./models/Event")
+const User = require("./models/User.js")
 const router = express.Router()
 
 
 
 router.post('/signup', async (req, res) => {
-    // save new user to firebase
-    // ensure that the usre doesn't already exsist
-    res.send('Hello World!')
+    user = new User({
+        email: req.body.email,
+        password: req.body.password,
+    });
+    await user.save();
+    res.send(user);
 });
 
 router.post('/login', async (req, res) => {
