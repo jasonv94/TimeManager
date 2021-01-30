@@ -6,7 +6,7 @@ class Profile extends React.Component {
     render() {
         return (
             <div className="container">
-                <Banner page="Profile" />
+                <Banner />
                 Profile
             </div>
         )

@@ -6,7 +6,7 @@ class Overview extends React.Component {
     render() {
         return (
             <div className="container">
-                <Banner page="Overview" />
+                <Banner />
                 Overview
             </div>
         )
