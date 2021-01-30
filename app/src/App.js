@@ -1,5 +1,4 @@
-// import React, { useState } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Overview, Profile, Login } from './pages';
@@ -7,51 +6,63 @@ import { Overview, Profile, Login } from './pages';
 import './App.css';
 
 
-// function setToken(userToken) {
-// }
+function useToken() {
+  const getToken = () => {
+    const tokenString = sessionStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.token
+  };
 
-// function getToken() {
-// }
+  const [token, setToken] = useState(getToken());
 
+  const saveToken = userToken => {
+    sessionStorage.setItem('token', JSON.stringify(userToken));
+    setToken(userToken.token);
+  };
+
+  return {
+    setToken: saveToken,
+    token
+  }
+}
 
 function App() {
-  // const token = getToken();
-  // const [token, setToken] = useState();
+  const { token, setToken } = useToken();
 
-  // if (!token) {
-  //   return <Login setToken={setToken} />
-  // } else {
+  if (!token) {
+    return <Login setToken={setToken} />
+  } else {
 
-  const routes = (
-    <Switch>
-      <Route
-        exact={true}
-        path='/'
-        component={Overview}
-      />
-      <Route
-        exact={true}
-        path='/profile'
-        component={Profile}
-      />
-      <Route
-        exact={true}
-        path='/login'
-        component={Login}
-      />
-    </Switch>
-  );
+    const routes = (
+      <Switch>
+        <Route
+          exact={true}
+          path='/'
+          component={Overview}
+        />
+        <Route
+          exact={true}
+          path='/profile'
+          component={Profile}
+        />
+        <Route
+          exact={true}
+          path='/login'
+          component={Login}
+        />
+      </Switch>
+    );
 
-  return (
-    <React.Fragment>
-      <Router>
-        <React.Fragment>
-          {routes}
-        </React.Fragment>
-      </Router>
-    </React.Fragment>
-  );
-  // }
+    return (
+      <React.Fragment>
+        <Router>
+          <React.Fragment>
+            {routes}
+          </React.Fragment>
+        </Router>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;

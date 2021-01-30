@@ -8,14 +8,15 @@ import TextField from "@material-ui/core/TextField";
 // import { Banner } from "../components";
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-        .then(data => data.json())
+    // return fetch('http://localhost:8080/login', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(credentials)
+    // })
+    //     .then(data => data.json())
+    return { "token": credentials }
 }
 
 function Login({ setToken }) {
@@ -36,11 +37,15 @@ function Login({ setToken }) {
             <form onSubmit={handleSubmit}>
                 <label>
                     <p>Username</p>
-                    <TextField id="standard-basic" label="Standard" />
+                    <TextField onChange={e => setUserName(e.target.value)} />
                 </label>
                 <label>
                     <p>Password</p>
-                    <TextField id="standard-basic" label="Standard" />
+                    <TextField
+                        label="Password"
+                        type="password"
+                        onChange={e => setPassword(e.target.value)}
+                    />
                 </label>
                 <div>
                     <button type="submit">Submit</button>
