@@ -5,7 +5,7 @@ import { Banner } from "../components";
 class Profile extends React.Component {
     render() {
         return (
-            <div>
+            <div className="container">
                 <Banner page="Profile" />
                 Profile
             </div>

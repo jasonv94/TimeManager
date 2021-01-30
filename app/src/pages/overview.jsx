@@ -5,7 +5,7 @@ import { Banner } from "../components";
 class Overview extends React.Component {
     render() {
         return (
-            <div>
+            <div className="container">
                 <Banner page="Overview" />
                 Overview
             </div>
