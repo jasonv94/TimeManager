@@ -1,2 +1,2 @@
 # TimeManager
-CuHacks 2021
+ A simple timetable manager app made using React during CuHacks 2021
