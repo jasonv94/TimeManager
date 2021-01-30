@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Banner } from "../components";
+
 class Overview extends React.Component {
     render() {
         return (
