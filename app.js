@@ -1,4 +1,5 @@
 const http = require('http');
+var admin = require("firebase-admin");
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -37,4 +38,13 @@ app.use(function(err, req,res,next){
   res.status(err.status || 500);
   res.render('error');
 });
+
+var serviceAccount = require("path/to/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+const db = admin.firestore();
+
 
