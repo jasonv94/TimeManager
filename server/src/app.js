@@ -17,11 +17,10 @@ async function run() {
   })
 }
 
-run();
-
-// mongoose
-//   .connect("mongodb://localhost:27017/acmedb", { useNewUrlParser: true })
-//   .then(() => run())
+const uri = "mongodb+srv://fb-dev:dev123@cluster0.kepz2.mongodb.net/dev?retryWrites=true&w=majority"
+mongoose
+  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => run())
 
 
 
