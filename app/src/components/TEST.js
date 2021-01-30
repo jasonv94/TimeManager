@@ -30,8 +30,6 @@ class AppointmentApp extends Component {
       confirmationModalOpen: false,
       appointmentDateSelected: false,
       appointmentMeridiem: 0,
-      validEmail: true,
-      validPhone: true,
       finished: false,
       smallScreen: window.innerWidth < 768,
       stepIndex: 0
