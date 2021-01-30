@@ -49,6 +49,7 @@ function App() {
           exact={true}
           path='/login'
           component={Login}
+          setToken={setToken}
         />
       </Switch>
     );
