@@ -2,8 +2,6 @@ const {body, validationResult } = require('express-validator');
 
 var User = require('../models/User)
 
-
-
 app.post(
     '/signup',
     body('email').isEmail(),

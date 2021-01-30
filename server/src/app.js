@@ -1,7 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const routes = require("./routes")
+const routes = require("./routes");
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
+var app = express();
+
+app.use(cookieParser());
+app.use(session({secret: "Shh it's a secret"}));
 
 // var admin = require("firebase-admin");
 // var serviceAccount = require("path/to/serviceAccountKey.json");

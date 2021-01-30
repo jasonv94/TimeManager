@@ -7,7 +7,7 @@ const eventSchema = new mongoose.Schema({
         trim: true
     },
     allDay: {
-        type: boolean,
+        type: Boolean,
         required: true
     },
     start: {
@@ -32,4 +32,4 @@ const eventSchema = new mongoose.Schema({
     }
 })
         
-module.exports = mongoose.model("Event", schema)
+module.exports = mongoose.model("Event", eventSchema)

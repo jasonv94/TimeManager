@@ -4,6 +4,13 @@ const User = require("./models/User.js")
 const router = express.Router()
 
 
+router.get('/', async (req, res) => {
+    if(req.session.userName){
+        res.send("you are loggen in as " + test);
+    } else {
+        res.send("please login");
+    }
+});
 
 router.post('/signup', async (req, res) => {
     user = new User({
@@ -15,8 +22,7 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-    // verify the user creds 
-    // return the user id
+    req.session.userName = 'test',
     res.send('Hello World!')
 });
 
