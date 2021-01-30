@@ -17,9 +17,11 @@
   "homepage": "https://github.com/jasonv94/TimeManager#readme",
   "description": "",
   "dependencies": {
-    "firebase": "^8.2.5",
+    "bower": "^1.8.12",
     "bulma": "^0.9.2",
     "express": "^4.17.1",
+    "firebase": "^8.2.5",
+    "firebaseui": "^4.7.1",
     "fullcalendar": "^5.5.1",
     "install": "^0.13.0",
     "mongoose": "^5.11.14",
