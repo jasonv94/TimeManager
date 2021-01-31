@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
-import { Overview, Profile, Login } from './pages';
+import { Overview, Profile, Login, AddEvent } from './pages';
 
 import './App.css';
 
@@ -48,6 +48,11 @@ function App() {
         exact={true}
         path='/profile'
         component={Profile}
+      />
+      <Route
+        exact={true}
+        path='/addEvent'
+        component={AddEvent}
       />
     </Switch>
   );
