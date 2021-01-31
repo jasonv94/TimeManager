@@ -13,6 +13,7 @@ router.post('/register', async (req, res) => {
         .save()
         .then(() => {
             console.log("successful")
+            req.session.username = user._id;
             return res.send(user);
         })
         .catch(err => {
@@ -31,8 +32,10 @@ router.post('/auth', async (req, res) => {
                 let match = await bcrypt.compare(password, user.password);
                 if (match) {
                     console.log("successful: " + username)
-                    req.session.username = username;
-                    req.session.id = username.id;
+                    console.log("successful: " + user._id)
+                    req.session.username = user._id;
+                    console.log("id: " + req.session.id)
+                    // req.session.id = user._id;
                     return res.send(username)
                 } else {
                     console.log("user not found");
@@ -55,9 +58,10 @@ router.get('/event', async (req, res) => {
 });
 
 router.post('/event', async (req, res) => {
-    let{user_id} = req.session.id;
-    let {title, allDay, start, end, url, backgroundColor, borderColor, textColor } = req.body;
-    event = new Event({user_id, title, allDay, start, end, url, backgroundColor, borderColor, textColor});
+    let user_id = req.session.username;
+    console.log(user_id);
+    let { title, allDay, start, end, url, backgroundColor, borderColor, textColor } = req.body;
+    event = new Event({ user_id, title, allDay, start, end, url, backgroundColor, borderColor, textColor });
     return event
         .save()
         .then(() => {

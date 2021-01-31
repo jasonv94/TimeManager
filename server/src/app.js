@@ -16,9 +16,19 @@ async function run() {
   const app = express()
 
   app.use(bodyParser.json())
-  app.use(cors());
+  app.use(cors({
+    origin: [
+      'http://localhost:3000',
+      'https://localhost:3000',
+      'http://localhost:5000',
+      'https://localhost:5000'
+    ],
+    credentials: true,
+    methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+    exposedHeaders: ['set-cookie']
+  }));
   app.use(cookieParser());
-  app.use(session({ secret: "Shh it's a secret" }));
+  app.use(session({ secret: "Shh it's a secret", resave: false, saveUninitialized: false }));
 
   app.use("/api", routes)
   app.listen(port, () => {

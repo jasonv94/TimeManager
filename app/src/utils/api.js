@@ -2,11 +2,14 @@ import axios from 'axios';
 import store from '../store';
 import { LOGOUT } from '../actions/types';
 
+
 const api = axios.create({
-    baseURL: '/api',
+
+    baseURL: 'http://localhost:5000/api',
     headers: {
         'Content-Type': 'application/json'
-    }
+    },
+    withCredentials: true,
 });
 
 api.interceptors.response.use(

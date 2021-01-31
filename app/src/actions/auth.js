@@ -28,7 +28,7 @@ export const loadUser = () => async dispatch => {
 // Register User
 export const register = formData => async dispatch => {
     try {
-        const res = await api.post('http://localhost:5000/api/register', formData);
+        const res = await api.post('/register', formData);
 
         dispatch({
             type: REGISTER_SUCCESS,
@@ -48,7 +48,7 @@ export const login = (username, password) => async dispatch => {
     const body = { username, password };
 
     try {
-        const res = await api.post('http://localhost:5000/api/auth', body);
+        const res = await api.post('/auth', body);
 
         dispatch({
             type: LOGIN_SUCCESS,
