@@ -5,14 +5,6 @@ const bcrypt = require('bcrypt');
 const Event = require("./models/Event")
 const User = require("./models/User.js")
 
-router.get('/', async (req, res) => {
-    if (req.session.username) {
-        res.send("you are loggen in as " + test);
-    } else {
-        res.send("please login");
-    }
-});
-
 router.post('/register', async (req, res) => {
     let { username, password } = req.body;
     console.log("register: " + username);
@@ -38,8 +30,9 @@ router.post('/auth', async (req, res) => {
             if (user) {
                 let match = await bcrypt.compare(password, user.password);
                 if (match) {
-                    console.log("successful: " + user)
+                    console.log("successful: " + username)
                     req.session.username = username;
+                    req.session.id = username.id;
                     return res.send(username)
                 } else {
                     console.log("user not found");
@@ -59,15 +52,23 @@ router.post('/auth', async (req, res) => {
 
 
 router.get('/event', async (req, res) => {
-    // get user events from db using the user id
-    res.send('Hello World!')
 });
 
 router.post('/event', async (req, res) => {
-    let { user_id } = req.body;
-
+    let{user_id} = req.session.id;
+    let {title, allDay, start, end, url, backgroundColor, borderColor, textColor } = req.body;
+    event = new Event({user_id, title, allDay, start, end, url, backgroundColor, borderColor, textColor});
+    return event
+        .save()
+        .then(() => {
+            console.log("id: " + req.session.id)
+            return res.send(event);
+        })
+        .catch(err => {
+            console.log("err:" + err);
+            return res.status(409).send(err)
+        });
     // add an event to the db using the user id
-    res.send('Hello World!')
 });
 
 
