@@ -61,12 +61,12 @@ router.post('/event', async (req, res) => {
     let user_id = req.session.username;
     console.log(user_id);
     let { title, allDay, start, end, url, backgroundColor, borderColor, textColor } = req.body;
-    event = new Event({ user_id, title, allDay, start, end, url, backgroundColor, borderColor, textColor });
-    return event
+    let events = new Event({ user_id, title, allDay, start, end, url, backgroundColor, borderColor, textColor });
+    return events
         .save()
         .then(() => {
             console.log("id: " + req.session.id)
-            return res.send(event);
+            return res.send(events);
         })
         .catch(err => {
             console.log("err:" + err);
@@ -78,8 +78,17 @@ router.post('/event', async (req, res) => {
 
 // this is dummy route to get all events
 router.get('/events', async (req, res) => {
-    const events = await Event.find()
-    res.send(events)
+    let user_id = req.session.username;
+    return Event
+        .find({ user_id })
+        .then((events) => {
+            console.log("evs:" + events);
+            res.send(events);
+        })
+        .catch(err => {
+            console.log("err:" + err);
+            return res.status(409).send(err)
+        });
 });
 
 module.exports = router
