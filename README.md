@@ -8,7 +8,6 @@ configure in "/" and 'app/'
 
 > npm install react \  
 > npm install express \  
-> npm install bulma \  
 > npm install sass \  
 > npm install fullcalendar \  
 > npm install mongoose \
