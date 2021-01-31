@@ -5,7 +5,7 @@ const router = express.Router()
 
 
 router.get('/', async (req, res) => {
-    if(req.session.userName){
+    if (req.session.userName) {
         res.send("you are loggen in as " + test);
     } else {
         res.send("please login");
@@ -26,14 +26,14 @@ router.post('/register', async (req, res) => {
             return res.send(user);
         })
         .catch(err => {
-            console.log("err: err");
+            console.log("err:" + err);
             return res.status(409).send(err)
         });
 });
 
 router.post('/login', async (req, res) => {
     req.session.userName = 'test',
-    res.send('Hello World!')
+        res.send('Hello World!')
 });
 
 
