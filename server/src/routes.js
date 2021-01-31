@@ -29,9 +29,9 @@ router.post('/register', async (req, res) => {
         });
 });
 
-router.post('/login', async (req, res) => {
+router.post('/auth', async (req, res) => {
     let { username, password } = req.body;
-    console.log("login: " + username);
+    console.log("auth: " + username);
     return User
         .findOne({ username })
         .then(async user => {

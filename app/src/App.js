@@ -1,65 +1,45 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import React, { Fragment, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Routes from './components/routing/Routes';
 
-import { Overview, Profile, Login } from './pages';
+import { LOGOUT } from './actions/types';
+import Landing from './components/layout/Landing';
+import Navbar from './components/layout/Navbar';
+
+import { Provider } from 'react-redux';
+import store from './store';
+import { loadUser } from './actions/auth';
+import setAuthToken from './utils/setAuthToken';
+
 
 import './App.css';
 
-
-function useToken() {
-  const getToken = () => {
-    const tokenString = sessionStorage.getItem('token');
-    const userToken = JSON.parse(tokenString);
-    return userToken?.token
-  };
-
-  const [token, setToken] = useState(getToken());
-
-  const saveToken = userToken => {
-    sessionStorage.setItem('token', JSON.stringify(userToken));
-    setToken(userToken.token);
-  };
-
-  return {
-    setToken: saveToken,
-    token
-  }
-}
-
-
-
 function App() {
-  const { token, setToken } = useToken();
+  useEffect(() => {
+    // check for token in LS
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+    store.dispatch(loadUser());
 
-  const routes = (
-    <Switch>
-      <Route
-        exact={true}
-        path='/'
-      >
-        <Login token={token} setToken={setToken} />
-      </Route>
-      <Route
-        exact={true}
-        path='/overview'
-        component={Overview}
-      />
-      <Route
-        exact={true}
-        path='/profile'
-        component={Profile}
-      />
-    </Switch>
-  );
+    // log user out from all tabs if they log out in one tab
+    window.addEventListener('storage', () => {
+      if (!localStorage.token) store.dispatch({ type: LOGOUT });
+    });
+  }, []);
 
   return (
-    <React.Fragment>
+    <Provider store={store}>
       <Router>
-        <React.Fragment>
-          {routes}
-        </React.Fragment>
+        <Fragment>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route component={Routes} />
+          </Switch>
+        </Fragment>
       </Router>
-    </React.Fragment>
+    </Provider>
   );
 
 }
