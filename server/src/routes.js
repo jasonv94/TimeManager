@@ -1,11 +1,12 @@
 const express = require("express")
+const router = express.Router()
+const bcrypt = require('bcrypt');
+
 const Event = require("./models/Event")
 const User = require("./models/User.js")
-const router = express.Router()
-
 
 router.get('/', async (req, res) => {
-    if (req.session.userName) {
+    if (req.session.username) {
         res.send("you are loggen in as " + test);
     } else {
         res.send("please login");
@@ -13,12 +14,9 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    console.log("register: " + req.body.username);
-    user = new User({
-        username: req.body.username,
-        password: req.body.password,
-    });
-
+    let { username, password } = req.body;
+    console.log("register: " + username);
+    user = new User({ username, password });
     return user
         .save()
         .then(() => {
@@ -32,8 +30,31 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-    req.session.userName = 'test',
-        res.send('Hello World!')
+    let { username, password } = req.body;
+    console.log("login: " + username);
+    return User
+        .findOne({ username })
+        .then(async user => {
+            if (user) {
+                let match = await bcrypt.compare(password, user.password);
+                if (match) {
+                    console.log("successful: " + user)
+                    req.session.username = username;
+                    return res.send(username)
+                } else {
+                    console.log("user not found");
+                    return res.status(409).send("")
+                }
+            } else {
+                console.log("user not found");
+                return res.status(409).send("")
+            }
+        })
+        .catch(err => {
+            console.log("err:" + err);
+            return res.status(409).send(err)
+        });
+
 });
 
 

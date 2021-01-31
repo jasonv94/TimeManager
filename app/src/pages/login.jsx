@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import TextField from "@material-ui/core/TextField";
-
 import axios from "axios";
+import { withRouter } from 'react-router-dom';
+
+
 
 class Login extends React.Component {
 
@@ -58,6 +59,7 @@ class Login extends React.Component {
 
     handle_submit(e) {
         e.preventDefault();
+
         const { username, password } = this.state;
         console.log("logging in: " + username);
 
@@ -67,8 +69,9 @@ class Login extends React.Component {
         axios
             .post('http://localhost:5000/api/login', { username, password }, config)
             .then(res => {
+                console.log("successful:" + res.data + " " + this.props);
                 this.props.setToken(res.data);
-                console.log("successful");
+                this.props.history.push("/overview");
             })
             .catch(err => {
                 console.log(err)
@@ -99,4 +102,4 @@ Login.propTypes = {
     setToken: PropTypes.func.isRequired
 }
 
-export default Login;
+export default withRouter(Login);

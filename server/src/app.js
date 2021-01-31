@@ -1,8 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const routes = require("./routes")
 var cors = require('cors');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
+const routes = require("./routes")
 
 // var admin = require("firebase-admin");
 // var serviceAccount = require("path/to/serviceAccountKey.json");
@@ -11,8 +14,12 @@ const port = 5000;
 
 async function run() {
   const app = express()
+
   app.use(bodyParser.json())
   app.use(cors());
+  app.use(cookieParser());
+  app.use(session({ secret: "Shh it's a secret" }));
+
   app.use("/api", routes)
   app.listen(port, () => {
     console.log("Server has started!")
