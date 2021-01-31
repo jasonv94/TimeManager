@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TextField from "@material-ui/core/TextField";
+import { TextField, Container, Button, Typography, CssBaseline, Paper } from "@material-ui/core";
 import axios from "axios";
 import { withRouter } from 'react-router-dom';
 
@@ -23,29 +23,48 @@ class Login extends React.Component {
     render() {
         const { username, password } = this.state;
         return (
-            <div className="container">
-                <form>
-                    <label>
-                        <p>Username</p>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Typography component="h1" variant="h5" align="center">
+                    Sign up
+                </Typography>
+                <Paper style={{ padding: 16, }}>
+                    <form>
                         <TextField
+                            label="Username"
+                            variant="outlined"
                             inputProps={{ "value": username }}
+                            fullWidth={true}
                             onChange={e => this.set_username(e.target.value)} />
-                    </label>
-                    <label>
-                        <p>Password</p>
+
+
                         <TextField
-                            inputProps={password}
+                            variant="outlined"
+                            inputProps={{ "value": password }}
                             label="Password"
                             type="password"
+                            fullWidth={true}
                             onChange={e => this.set_password(e.target.value)}
                         />
-                    </label>
-                    <div>
-                        <button type="submit" onClick={this.handle_submit}>Login</button>
-                        <button type="submit" onClick={this.handle_register}>Register</button>
-                    </div>
-                </form>
-            </div>
+                        <div>
+                            <Button
+                                color="primary"
+                                type="submit"
+                                onClick={this.handle_submit}
+                            >
+                                Login
+                            </Button>
+                            <Button
+                                color="primary"
+                                type="submit"
+                                onClick={this.handle_register}
+                            >
+                                Register
+                            </Button>
+                        </div>
+                    </form>
+                </Paper>
+            </Container>
         )
     }
 
