@@ -30,8 +30,9 @@ router.post('/login', async (req, res) => {
             if (user) {
                 let match = await bcrypt.compare(password, user.password);
                 if (match) {
-                    console.log("successful: " + user)
+                    console.log("successful: " + username)
                     req.session.username = username;
+                    req.session.id = username.id;
                     return res.send(username)
                 } else {
                     console.log("user not found");
@@ -51,16 +52,16 @@ router.post('/login', async (req, res) => {
 
 
 router.get('/event', async (req, res) => {
-    res.send('Hello World!')
 });
 
 router.post('/event', async (req, res) => {
-    let { user_id } = req.body;
+    let{user_id} = req.session.id;
+    let {title, allDay, start, end, url, backgroundColor, borderColor, textColor } = req.body;
     event = new Event({user_id, title, allDay, start, end, url, backgroundColor, borderColor, textColor});
     return event
         .save()
         .then(() => {
-            console.log("successful")
+            console.log("id: " + req.session.id)
             return res.send(event);
         })
         .catch(err => {
@@ -68,7 +69,6 @@ router.post('/event', async (req, res) => {
             return res.status(409).send(err)
         });
     // add an event to the db using the user id
-    res.send('Hello World!')
 });
 
 
