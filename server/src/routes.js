@@ -78,8 +78,9 @@ router.post('/event', async (req, res) => {
 
 // this is dummy route to get all events
 router.get('/events', async (req, res) => {
-    const events = await Event.find()
-    res.send(events)
+    await Event.find({user_id: req.session.username}).lean().exec(function(err, events) {
+        console.log(JSON.stringify(events))});
+    res.send("dummy")
 });
 
 module.exports = router
