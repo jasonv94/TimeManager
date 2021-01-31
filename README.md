@@ -2,13 +2,12 @@
  A simple timetable manager app made using React during CuHacks 2021
 
 
-## Configuration  
+## Starting TimeMaster9000
 
-configure in "/" and 'app/'  
+cd into the `server` folder and run `npm install`. Once the dependencies have
+been installed run `npm start`. 
 
-> npm install react \  
-> npm install express \  
-> npm install Materials-UI \  
-> npm install sass \  
-> npm install fullcalendar \  
-> npm install mongoose  
+On a new terminal cd into `app` and run `npm install`. Once the dependencies 
+have been installed run `npm start`. 
+
+Now head on over to `http://localhost:3000/` and be the master of you time.

@@ -9,6 +9,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 
+import { Container, AppBar, CssBaseline, Toolbar } from "@material-ui/core";
+
 const EventList = ({ load_events, event_list }) => {
     useEffect(() => {
         load_events();
@@ -28,6 +30,7 @@ const EventList = ({ load_events, event_list }) => {
 
     return (
         <Fragment>
+            <CssBaseline />
             {
                 loading ? (
                     <Spinner />
