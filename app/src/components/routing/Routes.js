@@ -5,7 +5,7 @@ import Register from '../auth/Register';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from './PrivateRoute';
 
-import { Overview } from '../../pages'
+import { Overview, AddEvent } from '../../pages'
 
 const Routes = props => {
     return (
@@ -14,6 +14,7 @@ const Routes = props => {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
                 <PrivateRoute exact path="/dashboard" component={Overview} />
+                <PrivateRoute exact path="/addEvent" component={AddEvent} />
                 <Route component={NotFound} />
             </Switch>
         </section>
