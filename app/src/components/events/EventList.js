@@ -2,10 +2,12 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import EventItem from './EventItem';
 import { load_events } from '../../actions/event';
 
-
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
 
 const EventList = ({ load_events, event_list }) => {
     useEffect(() => {
@@ -13,6 +15,16 @@ const EventList = ({ load_events, event_list }) => {
     }, [load_events]);
     console.log(event_list);
     const { loading, events } = event_list;
+
+    const init_events = events.map((event, i) => {
+        return {
+            id: i,
+            title: event.title,
+            start: event.start + 'T12:00:00'
+        }
+    });
+
+    console.log(init_events)
 
     return (
         <Fragment>
@@ -22,16 +34,19 @@ const EventList = ({ load_events, event_list }) => {
                 ) : (
                         <Fragment>
                             <h1 className='large text-primary'>Events</h1>
+
                             <div>
-                                {
-                                    events.length > 0 ? (
-                                        events.map(event => (
-                                            <EventItem key={event._id} title={event.title} start={event.start} end={event.end} />
-                                        ))
-                                    ) : (
-                                            <h4>No events found...</h4>
-                                        )
-                                }
+                                <FullCalendar
+                                    plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                                    initialView='dayGridMonth'
+                                    editable={true}
+                                    selectable={true}
+                                    selectMirror={true}
+                                    dayMaxEvents={true}
+                                    //weekends={this.state.weekendsVisible}
+                                    initialEvents={init_events}
+                                    eventContent={renderEventContent}
+                                />
                             </div>
                         </Fragment>
                     )
@@ -40,6 +55,14 @@ const EventList = ({ load_events, event_list }) => {
     )
 }
 
+function renderEventContent(eventInfo) {
+    return (
+        <>
+            <b>{eventInfo.timeText}</b>
+            <i>{eventInfo.event.title}</i>
+        </>
+    )
+}
 
 EventList.propTypes = {
     load_events: PropTypes.func.isRequired,
